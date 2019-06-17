@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
+    <link rel="stylesheet" href="pat.css">
+	<script type="text/paperscript" canvas="myCanvas">
+		var keyData = {
+			q: {
+				sound: new Howl({
+		  		urls: ['sounds/doublekill.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			w: {
+				sound: new Howl({
+		  		urls: ['sounds/combowhore.mp3']
+				}),
+				color: '#2ecc71'
+			},
+			e: {
+				sound: new Howl({
+		  		urls: ['sounds/dominating.mp3']
+				}),
+				color: '#3498db'
+			},
+			r: {
+				sound: new Howl({
+		  		urls: ['sounds/godlike.mp3']
+				}),
+				color: '#9b59b6'
+			},
+				t: {
+				sound: new Howl({
+		  		urls: ['sounds/headshot.mp3']
+				}),
+				color: '#34495e'
+			},
+			y: {
+				sound: new Howl({
+		  		urls: ['sounds/holyshit.mp3']
+				}),
+				color: '#16a085'
+			},
+			u: {
+				sound: new Howl({
+		  		urls: ['sounds/humiliation.mp3']
+				}),
+				color: '#27ae60'
+			},
+			i: {
+				sound: new Howl({
+		  		urls: ['sounds/impressive.mp3']
+				}),
+				color: '#2980b9'
+			},
+			o: {
+				sound: new Howl({
+					urls: ['sounds/killingspree.mp3']
+				}),
+				color: '#8e44ad'
+			},
+			p: {
+				sound: new Howl({
+		  		urls: ['sounds/ludicrouskill.mp3']
+				}),
+				color: '#2c3e50'
+			},
+			a: {
+				sound: new Howl({
+		  		urls: ['sounds/monsterkill.mp3']
+				}),
+				color: '#f1c40f'
+			},
+			s: {
+				sound: new Howl({
+		  		urls: ['sounds/perfect.mp3']
+				}),
+				color: '#e67e22'
+			},
+				d: {
+				sound: new Howl({
+		  		urls: ['sounds/rampage.mp3']
+				}),
+				color: '#e74c3c'
+			},
+			f: {
+				sound: new Howl({
+		  		urls: ['sounds/triplekill.mp3']
+				}),
+				color: '#95a5a6'
+			},
+			g: {
+				sound: new Howl({
+		  		urls: ['sounds/ultrakill.mp3']
+				}),
+				color: '#f39c12'
+			},
+			h: {
+				sound: new Howl({
+		  		urls: ['sounds/unstoppable.mp3']
+				}),
+				color: '#d35400'
+			},
+			j: {
+				sound: new Howl({
+		  		urls: ['sounds/wickedsick.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			k: {
+				sound: new Howl({
+		  		urls: ['sounds/ak47-1.wav']
+				}),
+				color: '#2ecc71'
+			},
+			l: {
+				sound: new Howl({
+		  		urls: ['sounds/awp1.wav']
+				}),
+				color: '#3498db'
+			},
+			z: {
+				sound: new Howl({
+		  		urls: ['sounds/beep.wav']
+				}),
+				color: '#9b59b6'
+			},
+			x: {
+				sound: new Howl({
+		  		urls: ['sounds/bizon_01.wav']
+				}),
+				color: '#34495e'
+			},
+			c: {
+				sound: new Howl({
+		  		urls: ['sounds/glock18-1.wav']
+				}),
+				color: '#16a085'
+			},
+			v: {
+				sound: new Howl({
+		  		urls: ['sounds/c4_disarmfinish.wav']
+				}),
+				color: '#27ae60'
+			},
+			b: {
+				sound: new Howl({
+		  		urls: ['sounds/deagle-1.wav']
+				}),
+				color: '#2980b9'
+			},
+			n: {
+				sound: new Howl({
+					urls: ['sounds/m4a1-1.wav']
+				}),
+				color: '#8e44ad'
+			},
+			m: {
+				sound: new Howl({
+		  		urls: ['sounds/revolver-1_01.wav']
+				}),
+				color: '#2c3e50'
+			}
+		}
+
+		var circles = [];
+
+		function onKeyDown(event) {
+			if(keyData[event.key]){
+				var maxPoint = new Point(view.size.width, view.size.height);
+				var randomPoint = Point.random();
+				var point = maxPoint * randomPoint;
+
+
+				var newCircle = new Path.RegularPolygon(point, 10, 500);
+				newCircle.fillColor = keyData[event.key].color;
+				newCircle.selected = true;
+
+				keyData[event.key].sound.play();
+				circles.push(newCircle);
+			}
+		}
+
+		function onFrame(event){
+        for(var i = 0; i < circles.length; i++){
+        circles[i].scale(0.9);
+        circles[i].fillColor.hue += 1;
+        if(circles[i].area < 1){
+          circles[i].remove();
+          circles.splice(i, 1);
+          console.log(circles);
+        }
+      }
+    }
+	</script>
+</head>
+<body>
+   <canvas id="myCanvas" resize></canvas>
+</body>
+</html>
